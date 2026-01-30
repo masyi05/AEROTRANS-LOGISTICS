@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | AeroTrans Logistics Sdn. Bhd.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .contact-page {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contact-intro {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(232, 241, 255, 0.3), rgba(255, 255, 255, 0.8));
+            border-radius: 20px 20px 5px 5px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--primary-blue) 0%, 
+                var(--accent-blue) 30%, 
+                var(--primary-blue) 70%, 
+                var(--secondary-blue) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .contact-intro h1 {
+            font-size: 2.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-intro h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            border-radius: 2px;
+        }
+        
+        .intro-text {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        .personal-touch {
+            display: inline-block;
+            background: var(--light-blue);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-family: 'Kalam', cursive;
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            border: 2px dashed var(--accent-blue);
+            transform: rotate(-1deg);
+        }
+        
+        .contact-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-method-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            padding: 1.8rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-blue);
+        }
+        
+        .contact-method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-method-card i {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            background: var(--light-blue);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .contact-method-content h3 {
+            margin: 0 0 8px 0;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+        }
+        
+        .contact-number {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            line-height: 1.4;
+        }
+        
+        .contact-details {
+            color: var(--medium-gray);
+            display: block;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .response-time-card {
+            background: linear-gradient(135deg, #e8f7ff, #f0fff4);
+            padding: 1.8rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            border-left: 5px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .response-time-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .contact-form-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin: 3rem 0;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .form-header .section-subtitle {
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s, box-shadow 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(74, 123, 201, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--accent-blue));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 95, 186, 0.3);
+        }
+        
+        .faq-contact-section {
+            background: var(--light-blue);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .faq-item-contact {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item-contact:hover {
+            border-left-color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+        
+        .faq-item-contact h4 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary-blue);
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .faq-item-contact h4 span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .faq-item-contact p {
+            max-height: 0;
+            overflow: hidden;
+            margin: 0;
+            color: var(--medium-gray);
+            transition: max-height 0.3s ease, margin 0.3s ease;
+        }
+        
+        .faq-item-contact.active p {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+        
+        .visit-office-section {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .office-info-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--light-blue);
+            padding: 1.8rem 2.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-form-section {
+                padding: 2rem;
+            }
+            
+            .contact-intro h1 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .office-info-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            
+            .response-time-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="aero-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="images/LOGO.jpeg" 
+                     alt="AeroTrans Logistics Company Logo" 
+                     class="company-logo">
+                <div class="logo-text">
+                    <h1>AeroTrans Logistics</h1>
+                    <p class="tagline">Delivering Trust, Moving the Future</p>
+                    <small style="font-size: 0.7rem; opacity: 0.7; font-family: 'Kalam', cursive;">
+                        Just a call away 📞
+                    </small>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="coverage.html">Coverage Area</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="#quote" class="btn-quote">Quick Quote</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <!-- Contact Intro -->
+        <section class="contact-intro">
+            <h1>Let's Talk Logistics</h1>
+            <p class="intro-text">
+                Got a shipment to move? Need storage space? Or just want to chat about your logistics needs?
+                We're real people here, not automated bots. Drop us a line and we'll get back to you personally.
+            </p>
+            <div class="personal-touch">
+                <i class="fas fa-heart" style="color: #e74c3c; margin-right: 8px;"></i>
+                Proudly serving Malaysia since 2017
+            </div>
+        </section>
+
+        <!-- Quick Contact Methods -->
+        <section class="contact-info-section">
+            <h2 class="section-title">Pick Your Preferred Way to Reach Us</h2>
+            
+            <div class="contact-methods-grid">
+                <article class="contact-method-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="contact-method-content">
+                        <h3>Call Us</h3>
+                        <p class="contact-number">+603 1473 8891</p>
+                        <small class="contact-details">
+                            <i class="fas fa-clock"></i> Mon-Fri: 8am-6pm, Sat: 9am-2pm
+                        </small>
+                    </div>
+                </article>
+                
+                <article class="contact-method-card">
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-method-content">
+                        <h3>Email Us</h3>
+                        <p class="contact-number">info@aerotranslogistics.com</p>
+                        <small class="contact-details">
+                            <i class="fas fa-reply"></i> Reply within 4 hours
+                        </small>
+                    </div>
+                </article>
+                
+                <article class="contact-method-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="contact-method-content">
+                        <h3>WhatsApp</h3>
+                        <p class="contact-number">+6012 345 6789</p>
+                        <small class="contact-details">
+                            <i class="fas fa-bolt"></i> Quickest response
+                        </small>
+                    </div>
+                </article>
+                
+                <article class="contact-method-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="contact-method-content">
+                        <h3>Visit Us</h3>
+                        <p class="contact-number">Shah Alam HQ</p>
+                        <small class="contact-details">
+                            <i class="fas fa-car"></i> Parking available
+                        </small>
+                    </div>
+                </article>
+            </div>
+            
+            <article class="response-time-card">
+                <div class="response-time-content">
+                    <i class="fas fa-bolt" style="font-size: 2rem; color: #4CAF50;"></i>
+                    <div>
+                        <h3>Quick Response Guarantee</h3>
+                        <p>
+                            We promise to get back to you within <strong>2 working hours</strong> during business hours.
+                            Urgent inquiries? Call us directly for immediate assistance.
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- CONTACT FORM -->
+        <section class="contact-form-section" id="quote">
+            <header class="form-header">
+                <h2>Request a Logistics Quote</h2>
+                <p class="section-subtitle">
+                    Complete the form below and our team will prepare a customised logistics quote for you.
+                </p>
+            </header>
+
+            <form id="quote-form" class="contact-form" action="https://formsubmit.co/your-email@example.com" method="POST">
+                <!-- FormSubmit configuration -->
+                <input type="hidden" name="_subject" value="New Quote Request - AeroTrans Logistics">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required aria-label="Your full name" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" aria-label="Company name" placeholder="Your company name (optional)">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required aria-label="Email address" placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required aria-label="Phone number" placeholder="+60 12 345 6789">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Service Required *</label>
+                    <select id="service" name="service" required aria-label="Select required service">
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="warehousing">Warehousing & Storage</option>
+                        <option value="distribution">Distribution</option>
+                        <option value="freight">Freight Forwarding</option>
+                        <option value="logistics">Complete Logistics Management</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origin">Pickup Location</label>
+                        <input type="text" id="origin" name="origin" aria-label="Pickup location" placeholder="Where to pick up?">
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Delivery Location</label>
+                        <input type="text" id="destination" name="destination" aria-label="Delivery location" placeholder="Where to deliver?">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Details</label>
+                    <textarea id="message" name="message" rows="4" aria-label="Additional details about your shipment" placeholder="Tell us about your shipment - size, weight, special requirements, etc."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Quote Request
+                </button>
+            </form>
+
+            <p id="form-success" style="display:none; color:green; margin-top:1rem; text-align:center; padding: 1rem; background: #f0fff4; border-radius: 5px;">
+                ✅ Thank you! Your request has been successfully sent. We will contact you shortly.
+            </p>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-contact-section">
+            <h2 class="section-title">Common Questions (Before You Ask)</h2>
+            
+            <div class="faq-container">
+                <article class="faq-item-contact">
+                    <h4>
+                        <span><i class="fas fa-question-circle" style="color: var(--accent-blue);"></i> How long until I get my quote?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h4>
+                    <p>
+                        Usually within <strong>2-4 hours</strong> during business hours. Complex requests might take up to 24 hours,
+                        but we'll always send you an acknowledgment email immediately.
+                    </p>
+                </article>
+                
+                <article class="faq-item-contact">
+                    <h4>
+                        <span><i class="fas fa-question-circle" style="color: var(--accent-blue);"></i> Is the quote binding?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h4>
+                    <p>
+                        No, it's an estimate based on the information you provide. The final price might vary slightly
+                        if there are changes, but we'll always communicate any adjustments before proceeding.
+                    </p>
+                </article>
+                
+                <article class="faq-item-contact">
+                    <h4>
+                        <span><i class="fas fa-question-circle" style="color: var(--accent-blue);"></i> Do you service my area?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h4>
+                    <p>
+                        We cover <strong>all of Peninsular Malaysia</strong> and major cities in East Malaysia.
+                        Check our <a href="coverage.html" style="color: var(--accent-blue);">coverage map</a> for details.
+                        If you're in a remote area, we might still be able to help - just ask!
+                    </p>
+                </article>
+                
+                <article class="faq-item-contact">
+                    <h4>
+                        <span><i class="fas fa-question-circle" style="color: var(--accent-blue);"></i> What if I need something shipped today?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h4>
+                    <p>
+                        Call us immediately at <strong>+603 1473 8891</strong> for urgent shipments.
+                        We often have same-day pickup available in Klang Valley if you call before 2pm.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Visit Our Office -->
+        <section class="visit-office-section">
+            <h2>
+                <i class="fas fa-mug-hot" style="color: #FF9800;"></i> Coffee's On Us!
+            </h2>
+            <p class="section-subtitle">
+                Prefer to talk face-to-face? Come visit our office in Shah Alam. We've got parking, good coffee,
+                and a team ready to discuss your logistics needs in person. No appointment needed during office hours!
+            </p>
+            
+            <article class="office-info-card">
+                <i class="fas fa-map-marker-alt fa-2x" style="color: var(--accent-blue);"></i>
+                <div style="text-align: left;">
+                    <h4 style="margin: 0 0 5px 0; color: var(--primary-blue);">AeroTrans Logistics HQ</h4>
+                    <p style="margin: 0; color: var(--dark-gray);">
+                        No. 88, Jalan Industri<br>
+                        40400 Shah Alam, Selangor
+                    </p>
+                </div>
+            </article>
+            
+            <p style="color: var(--medium-gray); font-size: 0.95rem;">
+                <i class="fas fa-car"></i> Free visitor parking • 
+                <i class="fas fa-wheelchair"></i> Wheelchair accessible • 
+                <i class="fas fa-wifi"></i> Free WiFi
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <section class="footer-section">
+                <h3>AeroTrans Logistics Sdn. Bhd.</h3>
+                <p class="tagline">Delivering Trust, Moving the Future</p>
+                <p>Reliable logistics and transportation company delivering goods efficiently and safely across Malaysia since 2017.</p>
+                <p style="font-family: 'Kalam', cursive; margin-top: 1rem; color: rgba(255,255,255,0.7);">
+                    — The AeroTrans Team
+                </p>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="coverage.html">Coverage Map</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> No. 88, Jalan Industri, 40400 Shah Alam, Selangor</p>
+                <p><i class="fas fa-phone"></i> +603 1473 8891 (Office)</p>
+                <p><i class="fab fa-whatsapp"></i> +6012 345 6789 (WhatsApp)</p>
+                <p><i class="fas fa-envelope"></i> info@aerotranslogistics.com</p>
+                <p><i class="fas fa-globe"></i> www.aerotranslogistics.com</p>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-clock"></i> Business Hours</h3>
+                <p><i class="fas fa-sun"></i> Monday - Friday: 8:00 AM - 6:00 PM</p>
+                <p><i class="fas fa-coffee"></i> Saturday: 9:00 AM - 2:00 PM</p>
+                <p><i class="fas fa-bed"></i> Sunday: Closed</p>
+                <p><i class="fas fa-exclamation-triangle"></i> Emergency: Call +603 1473 8891</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2017-2025 AeroTrans Logistics Sdn. Bhd. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
+                Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> in Shah Alam, Malaysia
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-item-contact h4').forEach(header => {
+            header.addEventListener('click', function() {
+                const item = this.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item-contact').forEach(faq => {
+                    faq.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('quote-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMsg = document.getElementById('form-success');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+            }
+            
+            // You can add AJAX submission here if needed
+            // For now, just show success message and reset form
+            setTimeout(() => {
+                this.reset();
+                if (successMsg) {
+                    successMsg.style.display = 'none';
+                }
+            }, 3000);
+            
+            // For FormSubmit, you might want to actually submit
+            // this.submit(); // Uncomment this to enable actual form submission
+        });
+        
+        // Form Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('quote-form');
+            if (form) {
+                form.style.opacity = '0';
+                form.style.transform = 'translateY(20px)';
+                form.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    form.style.opacity = '1';
+                    form.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coverage Area | AeroTrans Logistics Sdn. Bhd.</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #1a2980;
+            --secondary: #26d0ce;
+            --accent: #f39c12;
+            --light: #f8f9fa;
+            --dark: #333;
+            --white: #fff;
+            --gray: #666;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin: 0;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .btn-quote {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .btn-quote:hover {
+            transform: translateY(-2px);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Coverage Page Content */
+        .page-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .coverage-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .map-side {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .info-side {
+            flex: 2;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        #coverage-map {
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .legend-item:hover {
+            background: #f0f0f0;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .red { background-color: #e74c3c; }
+        .green { background-color: #2ecc71; }
+        .gold { background-color: var(--accent); }
+        
+        .highway-list {
+            margin-top: 20px;
+        }
+        
+        .highway-item {
+            padding: 20px;
+            background: var(--white);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .highway-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highway-item h3 {
+            margin-bottom: 10px;
+        }
+        
+        .strategic-advantages {
+            background: var(--white);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .advantages-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage-card {
+            padding: 25px;
+            border-radius: 10px;
+            background: var(--light);
+            transition: transform 0.3s;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .advantage-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer Styles - Matching index.html */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+                margin-top: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .content {
+                flex-direction: column;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            #coverage-map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="images/LOGO.jpeg" alt="AeroTrans Logistics Company Logo" class="company-logo">
+                <div class="logo-text">
+                    <h1>AeroTrans Logistics</h1>
+                    <p class="tagline">Delivering Trust, Moving the Future</p>
+                </div>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="coverage.html" class="active">Coverage Area</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html#quote" class="btn-quote">Request Quote</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Coverage Page Header -->
+    <header class="page-header">
+        <h1>Our Coverage Area</h1>
+        <p>Strategic highway access enabling efficient logistics services across Malaysia</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="coverage-container">
+        <section class="content">
+            <article class="map-side">
+                <div id="coverage-map"></div>
+                <aside class="legend">
+                    <h3>Map Legend</h3>
+                    <div class="legend-item">
+                        <div class="color-box red"></div>
+                        <span><strong>Federal Highway</strong> - Major artery connecting Kuala Lumpur to Port Klang</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box green"></div>
+                        <span><strong>North-South Expressway</strong> - Main expressway along Peninsular Malaysia</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box gold"></div>
+                        <span><strong>Our Location</strong> - Shah Alam headquarters</span>
+                    </div>
+                </aside>
+            </article>
+            
+            <article class="info-side">
+                <h2 style="color: var(--primary); margin-bottom: 25px;">Strategic Highway Access</h2>
+                
+                <section class="highway-list">
+                    <article class="highway-item">
+                        <h3 style="color: #e74c3c;">🔴 Federal Highway</h3>
+                        <p>Connects Kuala Lumpur to Port Klang via Petaling Jaya, Subang Jaya, and Shah Alam. One of the busiest highways in Malaysia.</p>
+                    </article>
+                    
+                    <article class="highway-item">
+                        <h3 style="color: #2ecc71;">🟢 North-South Expressway (NSE)</h3>
+                        <p>Major expressway running from Bukit Kayu Hitam (North) to Johor Bahru (South). Total length: 772 km.</p>
+                    </article>
+                    
+                    <article class="highway-item">
+                        <h3 style="color: #2ecc71;">🟢 New Klang Valley Expressway (NKVE)</h3>
+                        <p>Links Klang Valley to the North-South Expressway. Major alternative to Federal Highway.</p>
+                    </article>
+                    
+                    <article class="highway-item">
+                        <h3 style="color: var(--accent);">⭐ Our Strategic Location: Shah Alam</h3>
+                        <p>Capital city of Selangor. Strategically located with direct access to all major highways in Klang Valley.</p>
+                    </article>
+                </section>
+            </article>
+        </section>
+        
+        <!-- Strategic Advantages Section -->
+        <section class="strategic-advantages">
+            <h2>Our Location Advantages</h2>
+            <p style="max-width: 800px; margin: 0 auto 40px; color: var(--gray);">
+                Based in Shah Alam, we are strategically positioned to serve businesses across Malaysia with maximum efficiency
+            </p>
+            
+            <div class="advantages-grid">
+                <article class="advantage-card">
+                    <i class="fas fa-road"></i>
+                    <h3>Major Highway Access</h3>
+                    <p>Direct connections to Federal Highway, North-South Expressway, and NKVE</p>
+                </article>
+                
+                <article class="advantage-card">
+                    <i class="fas fa-industry"></i>
+                    <h3>Industrial Hub</h3>
+                    <p>Located in Shah Alam - Malaysia's key industrial and commercial center</p>
+                </article>
+                
+                <article class="advantage-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Efficient Distribution</h3>
+                    <p>Quick access to business districts, industrial areas, and port facilities</p>
+                </article>
+                
+                <article class="advantage-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Nationwide Coverage</h3>
+                    <p>Serving customers effectively throughout Malaysia from our central location</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <section class="footer-section">
+                <h3>AeroTrans Logistics Sdn. Bhd.</h3>
+                <p class="tagline">Delivering Trust, Moving the Future</p>
+                <p>Reliable logistics and transportation company delivering goods efficiently and safely across Malaysia.</p>
+                <!-- Small handwritten signature style -->
+                <p style="font-family: 'Kalam', cursive; margin-top: 1rem; color: rgba(255,255,255,0.7);">
+                    — The AeroTrans Team
+                </p>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="coverage.html">Coverage Map</a></li>
+                    <li><a href="contact.html">Contact (You're here!)</a></li>
+                </ul>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-address-card"></i> Reach Out</h3>
+                <p><i class="fas fa-map-marker-alt"></i> No. 88, Jalan Industri, 40400 Shah Alam</p>
+                <p><i class="fas fa-phone"></i> +603 1473 8891 (Office)</p>
+                <p><i class="fab fa-whatsapp"></i> +6012 345 6789 (WhatsApp)</p>
+                <p><i class="fas fa-envelope"></i> info@aerotranslogistics.com</p>
+                <p><i class="fas fa-globe"></i> www.aerotranslogistics.com</p>
+            </section>
+            <section class="footer-section">
+                <h3><i class="fas fa-clock"></i> When We're Here</h3>
+                <p><i class="fas fa-sun"></i> Monday - Friday: 8:00 AM - 6:00 PM</p>
+                <p><i class="fas fa-coffee"></i> Saturday: 9:00 AM - 2:00 PM</p>
+                <p><i class="fas fa-bed"></i> Sunday: Closed (Family day!)</p>
+                <p><i class="fas fa-exclamation-triangle"></i> Urgent: Call our emergency line</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2017-2025 AeroTrans Logistics Sdn. Bhd. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
+                Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> in Shah Alam
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Initialize the map centered on Klang Valley
+        const map = L.map('coverage-map').setView([3.0738, 101.5183], 11);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors | AeroTrans Logistics'
+        }).addTo(map);
+        
+        // Define highway coordinates (approximate paths)
+        const highways = {
+            federal: [
+                [3.1667, 101.7000], // Kuala Lumpur
+                [3.1167, 101.6333], // Petaling Jaya
+                [3.0667, 101.5833], // Subang Jaya
+                [3.0833, 101.5333], // Shah Alam
+                [3.0333, 101.4500], // Klang
+                [3.0000, 101.4000]  // Port Klang
+            ],
+            northSouth: [
+                [3.1667, 101.7000], // KL
+                [3.2167, 101.6333], // Rawang
+                [3.8000, 101.4333], // Tapah
+                [4.5833, 101.0833], // Ipoh
+                [5.4167, 100.4000], // Penang Bridge
+                [6.1167, 100.3667]  // Alor Setar
+            ],
+            nkve: [
+                [3.2167, 101.6333], // Rawang
+                [3.1667, 101.7000], // KL
+                [3.0833, 101.5333], // Shah Alam
+                [2.9500, 101.3833]  // Klang
+            ]
+        };
+        
+        // Draw Federal Highway (red)
+        L.polyline(highways.federal, {
+            color: '#e74c3c',
+            weight: 5,
+            opacity: 0.8,
+            dashArray: '10, 10'
+        }).addTo(map).bindPopup('<b>Federal Highway</b><br>Kuala Lumpur ↔ Port Klang<br><small>AeroTrans Logistics uses this route for Klang Valley deliveries</small>');
+        
+        // Draw North-South Expressway (green)
+        L.polyline(highways.northSouth, {
+            color: '#2ecc71',
+            weight: 5,
+            opacity: 0.8
+        }).addTo(map).bindPopup('<b>North-South Expressway (NSE)</b><br>Main north-south route for nationwide delivery');
+        
+        // Draw NKVE (green, dashed)
+        L.polyline(highways.nkve, {
+            color: '#2ecc71',
+            weight: 4,
+            opacity: 0.8,
+            dashArray: '5, 10'
+        }).addTo(map).bindPopup('<b>New Klang Valley Expressway (NKVE)</b><br>Connects industrial areas to major highways');
+        
+        // Add Shah Alam marker
+        const shahAlamMarker = L.marker([3.0738, 101.5183], {
+            icon: L.divIcon({
+                html: '⭐<div style="font-size:12px; margin-top:5px; font-weight:bold;">Our HQ</div>',
+                iconSize: [40, 40],
+                className: 'custom-marker'
+            })
+        }).addTo(map);
+        
+        shahAlamMarker.bindPopup(`
+            <div style="text-align:center;">
+                <h3 style="margin:0; color:#f39c12;">⭐ AeroTrans Logistics HQ</h3>
+                <p><strong>Shah Alam, Selangor</strong></p>
+                <p>Strategic hub with access to:<br>
+                • Federal Highway<br>
+                • NKVE<br>
+                • NSE</p>
+                <small>No. 88, Jalan Industri, 40400 Shah Alam</small>
+            </div>
+        `);
+        
+        // Add some other city markers
+        const cities = [
+            {name: "Kuala Lumpur", coords: [3.1390, 101.6869], type: "capital"},
+            {name: "Petaling Jaya", coords: [3.1073, 101.6067], type: "city"},
+            {name: "Subang Jaya", coords: [3.0668, 101.5865], type: "city"},
+            {name: "Klang", coords: [3.0449, 101.4456], type: "port"}
+        ];
+        
+        cities.forEach(city => {
+            L.circleMarker(city.coords, {
+                radius: 6,
+                fillColor: '#3498db',
+                color: '#2980b9',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map).bindPopup(`<b>${city.name}</b><br><small>Served by AeroTrans Logistics</small>`);
+        });
+        
+        // Fit map to show all routes
+        const allPoints = [
+            ...highways.federal,
+            ...highways.northSouth.slice(0, 3),
+            ...highways.nkve,
+            [3.0738, 101.5183] // Shah Alam
+        ];
+        
+        const bounds = L.latLngBounds(allPoints);
+        map.fitBounds(bounds.pad(0.1));
+        
+        // Close mobile menu when clicking on link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    </script>
+</body>
+</html>
